@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "405730688715",
+    "project_id": "pipheaksa",
+    "storage_bucket": "pipheaksa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:405730688715:android:4a10d21cab63b99882a54e",
+        "android_client_info": {
+          "package_name": "com.example.pipheaksa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "405730688715-71dl4gfkd8vprrct8jd9klpke1q6htmo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pipheaksa",
+            "certificate_hash": "44dc770cd1c8b201c88f48996d84d011c7b1ff3c"
+          }
+        },
+        {
+          "client_id": "405730688715-75q0a1bh8vqo8egq5jrbpbl6fbreem80.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgxD81Xbbcio0XO-80bSsNTLSapD9a-aQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "405730688715-75q0a1bh8vqo8egq5jrbpbl6fbreem80.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "405730688715-sp6nf4qakagafik1bvv78qmfmspln120.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.pipheaksa"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
