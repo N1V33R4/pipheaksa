@@ -128,3 +128,52 @@ Extending this, we can add more logic, methods... Can't do this with the simple 
 
 
 # Flutter route management 
+use `routemaster` package, kinda new 
+
+
+# Firebase state persistence
+How to linger auth state after closing the app. 
+
+Use a shit ton of (stream) providers. 
+
+In order to scan user auth status, we turn MyApp into a stateful consumer widget?!?
+This has ref built inside the state class. 
+
+Watching authStateChange provider and using .when on it instead of Future/StreamBuilder
+
+
+# Community list drawer
+use `SafeArea` to prevent showing on notch
+
+Open drawer via `Scaffold.of(context).openDrawer()`
+
+Push named routes via `Routemaster.of(context).push('/create-community');`
+
+
+# Create community screen
+Align can be used inside Column to rearrange things. 
+
+
+# Creating communities and storing in firebase
+create model, repository, controller
+
+Store data in firestore: 
+```dart
+return right(_communities.doc(community.name).set(community.toMap()));
+```
+> didn't know you can use other things than uid
+
+Same as authController. Widget listens to it for loading status. 
+
+
+# Displaying user communities 
+To listen to changes from a get request, you use a StreamProvider???
+
+Helps with caching and reduce StreamBuilder boilerplate(?)
+
+Build with StreamProvider by: `ref.watch().when()`
+
+When adding ListView.builder after single ListTile, you can wrap the builder in `Expanded` so that it takes rest of the remaining space. 
+
+
+# Community profile UI 
