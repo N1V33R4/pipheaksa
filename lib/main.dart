@@ -34,7 +34,7 @@ class _MyAppState extends ConsumerState<MyApp> {
   void getData(WidgetRef ref, User data) async {
     userModel =
         await ref.watch(authControllerProvider.notifier).getUserData(data.uid).first;
-    ref.read(userProvider.notifier).state = userModel;
+    ref.read(userProvider.notifier).update((state) => userModel);
     setState(() {});
   }
 
