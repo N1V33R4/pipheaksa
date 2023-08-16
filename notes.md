@@ -177,3 +177,40 @@ When adding ListView.builder after single ListTile, you can wrap the builder in 
 
 
 # Community profile UI 
+Dynamic route
+Parse parameter in routemaster: 
+```dart
+'/p/:name': (route) => MaterialPage(
+        child: CommunityScreen(
+          name: route.pathParameters['name']!,
+        ),
+      ),
+```
+
+Why is this also a StreamProvider??!
+Is it 'cuz you want changes to update automatically? 
+
+When stream loads, use `NestedScrollView`
+`SilverAppBar` is placed inside
+
+
+# Edit community screen
+Select image and stuff
+
+Uses Stack, DottedBorder, Positioned, providers...
+
+packages: dotted_border, file_picker
+
+GestureDetector on box 
+
+## Storage repository
+Class to store local images to firestore
+
+File updates are sent to the same place, same name, so it overrides the old one without needing to manually delete. 
+
+I can't remember it all 'cuz it's so complicated. Maybe it's too much for me? Web ain't this hard. 
+
+You can combine StateNotifierProvider with StreamProvider. See edit_community_screen.dart
+
+
+# Search communities

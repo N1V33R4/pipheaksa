@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pipheaksa/core/common/error_text.dart';
 import 'package:pipheaksa/core/common/loader.dart';
 import 'package:pipheaksa/features/community/controller/community_controller.dart';
+import 'package:pipheaksa/models/community_model.dart';
 import 'package:routemaster/routemaster.dart';
 
 class CommunityListDrawer extends ConsumerWidget {
@@ -10,6 +11,10 @@ class CommunityListDrawer extends ConsumerWidget {
 
   void navigateToCreateCommunity(BuildContext context) {
     Routemaster.of(context).push('/create-community');
+  }
+
+  void navigateToCommunity(BuildContext context, Community community) {
+    Routemaster.of(context).push('/p/${community.name}');
   }
 
   @override
@@ -33,8 +38,8 @@ class CommunityListDrawer extends ConsumerWidget {
                           leading: CircleAvatar(
                             backgroundImage: NetworkImage(community.avatar),
                           ),
-                          title: Text('r/${community.name}'),
-                          onTap: () {},
+                          title: Text('p/${community.name}'),
+                          onTap: () => navigateToCommunity(context, community),
                         );
                       },
                     ),
