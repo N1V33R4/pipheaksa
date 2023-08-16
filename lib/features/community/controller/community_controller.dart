@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:fpdart/fpdart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pipheaksa/core/constants/constants.dart';
@@ -31,6 +30,10 @@ final communityControllerProvider = StateNotifierProvider<CommunityController, b
 
 final getCommunityByNameProvider = StreamProvider.family((ref, String name) {
   return ref.watch(communityControllerProvider.notifier).getCommunityByName(name);
+});
+
+final searchCommunityProvider = StreamProvider.family((ref, String query) {
+  return ref.watch(communityControllerProvider.notifier).searchCommunity(query);
 });
 
 class CommunityController extends StateNotifier<bool> {
@@ -118,5 +121,9 @@ class CommunityController extends StateNotifier<bool> {
       (l) => showSnackBar(l.message),
       (r) => Routemaster.of(context).pop(),
     );
+  }
+
+  Stream<List<Community>> searchCommunity(String query) {
+    return _communityRepository.searchCommunity(query);
   }
 }

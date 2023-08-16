@@ -214,3 +214,4 @@ You can combine StateNotifierProvider with StreamProvider. See edit_community_sc
 
 
 # Search communities
+Don't need another screen, use delegates
