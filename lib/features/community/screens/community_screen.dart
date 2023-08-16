@@ -4,6 +4,7 @@ import 'package:pipheaksa/core/common/error_text.dart';
 import 'package:pipheaksa/core/common/loader.dart';
 import 'package:pipheaksa/features/auth/controller/auth_controller.dart';
 import 'package:pipheaksa/features/community/controller/community_controller.dart';
+import 'package:pipheaksa/models/community_model.dart';
 import 'package:routemaster/routemaster.dart';
 
 class CommunityScreen extends ConsumerWidget {
@@ -18,9 +19,14 @@ class CommunityScreen extends ConsumerWidget {
     Routemaster.of(context).push('/mod-tools/$name');
   }
 
+  void joinCommunity(WidgetRef ref, Community community) {
+    ref.read(communityControllerProvider.notifier).joinCommunity(community);
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(userProvider);
+
     return Scaffold(
       body: ref.watch(getCommunityByNameProvider(name)).when(
             data: (community) => NestedScrollView(
@@ -78,7 +84,7 @@ class CommunityScreen extends ConsumerWidget {
                                       child: const Text('Mod tools'),
                                     )
                                   : OutlinedButton(
-                                      onPressed: () {},
+                                      onPressed: () => joinCommunity(ref, community),
                                       style: ElevatedButton.styleFrom(
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(20),

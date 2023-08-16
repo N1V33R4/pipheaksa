@@ -2,8 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:pipheaksa/core/constants/constants.dart';
+import 'package:pipheaksa/core/failure.dart';
 import 'package:pipheaksa/core/providers/storage_repository_provider.dart';
+import 'package:pipheaksa/core/type_defs.dart';
 import 'package:pipheaksa/core/utils.dart';
 import 'package:pipheaksa/features/auth/controller/auth_controller.dart';
 import 'package:pipheaksa/features/community/repository/community_repository.dart';
@@ -74,6 +77,30 @@ class CommunityController extends StateNotifier<bool> {
       },
     );
   }
+
+  void joinCommunity(Community community) async {
+    final user = _ref.read(userProvider)!;
+
+    final Either<Failure, void> res;
+    if (community.members.contains(user.uid)) {
+      res = await _communityRepository.leaveCommunity(community.name, user.uid);
+    } else {
+      res = await _communityRepository.joinCommunity(community.name, user.uid);
+    }
+
+    res.fold(
+      (l) => showSnackBar(l.message),
+      (r) {
+        if (community.members.contains(user.uid)) {
+          showSnackBar('You left ${community.name}.');
+        } else {
+          showSnackBar('Welcome to ${community.name}!');
+        }
+      },
+    );
+  }
+
+  void leaveCommunity(String communityName, String userId) async {}
 
   Stream<List<Community>> getUserCommunities() {
     final uid = _ref.read(userProvider)!.uid;

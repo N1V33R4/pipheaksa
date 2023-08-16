@@ -232,3 +232,9 @@ void logOut() async {
 
 Calling this code from UI will refresh the authStateChange stream provider, which will update the userProvider(?)
 
+
+# Join community
+repo -> controller -> ui
+
+the streams take of of updating to the latest version of each doc(?)
+
