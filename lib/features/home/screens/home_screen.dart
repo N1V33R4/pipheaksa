@@ -3,12 +3,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pipheaksa/features/auth/controller/auth_controller.dart';
 import 'package:pipheaksa/features/home/delegates/search_community_delegate.dart';
 import 'package:pipheaksa/features/home/drawers/community_list_drawer.dart';
+import 'package:pipheaksa/features/home/drawers/profile_drawer.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   void displayDrawer(BuildContext context) {
     Scaffold.of(context).openDrawer();
+  }
+
+  void displayEndDrawer(BuildContext context) {
+    Scaffold.of(context).openEndDrawer();
   }
 
   @override
@@ -36,11 +41,12 @@ class HomeScreen extends ConsumerWidget {
             icon: CircleAvatar(
               backgroundImage: NetworkImage(user.profilePic),
             ),
-            onPressed: () {},
+            onPressed: () => displayEndDrawer(context),
           )
         ],
       ),
       drawer: const CommunityListDrawer(),
+      endDrawer: const ProfileDrawer(),
       body: Center(
         child: Text(user.name),
       ),

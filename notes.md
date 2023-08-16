@@ -215,3 +215,20 @@ You can combine StateNotifierProvider with StreamProvider. See edit_community_sc
 
 # Search communities
 Don't need another screen, use delegates
+
+Extend the SearchDelegate interface and implement the methods. Like all othet GETs in this damn course, you gotta use a Stream and add a StreamProviderFamily on top of that. 
+
+Also, the mere searching query of firebase is unnecessarily complicated. 
+
+
+# Logout
+few lines in auth repo
+```dart
+void logOut() async {
+  await _googleSignIn.signOut();
+  await _auth.signOut();
+}
+```
+
+Calling this code from UI will refresh the authStateChange stream provider, which will update the userProvider(?)
+
