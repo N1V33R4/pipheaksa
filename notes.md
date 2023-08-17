@@ -232,9 +232,26 @@ void logOut() async {
 
 Calling this code from UI will refresh the authStateChange stream provider, which will update the userProvider(?)
 
+I worry the data is still in userProvider.
+
 
 # Join community
 repo -> controller -> ui
 
 the streams take of of updating to the latest version of each doc(?)
 
+
+# Change mods
+CheckboxListTile
+
+
+# User profile
+## Detail screen
+
+## Edit screen
+Copy paste repository from community repo
+
+It's a pain in the ass 'cuz of all the boilerplate code. Reminds me of Java. 
+
+
+# Toggle theme 

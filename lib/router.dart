@@ -2,6 +2,9 @@
 // loggedIn
 
 import 'package:flutter/material.dart';
+import 'package:pipheaksa/features/community/screens/add_mods_screen.dart';
+import 'package:pipheaksa/features/user_profile/screens/edit_profile_screen.dart';
+import 'package:pipheaksa/features/user_profile/screens/user_profile_screen.dart';
 import 'package:routemaster/routemaster.dart';
 
 import 'package:pipheaksa/features/community/screens/edit_community_screen.dart';
@@ -32,6 +35,21 @@ final loggedInRoute = RouteMap(routes: {
   '/edit-community/:name': (route) => MaterialPage(
         child: EditCommunityScreen(
           name: route.pathParameters['name']!,
+        ),
+      ),
+  '/add-mods/:name': (route) => MaterialPage(
+        child: AddModsScreen(
+          name: route.pathParameters['name']!,
+        ),
+      ),
+  '/u/:uid': (route) => MaterialPage(
+        child: UserProfileScreen(
+          uid: route.pathParameters['uid']!,
+        ),
+      ),
+  '/edit-profile/:uid': (route) => MaterialPage(
+        child: EditProfileScreen(
+          uid: route.pathParameters['uid']!,
         ),
       ),
 });

@@ -3,15 +3,15 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:routemaster/routemaster.dart';
+
 import 'package:pipheaksa/core/constants/constants.dart';
 import 'package:pipheaksa/core/failure.dart';
 import 'package:pipheaksa/core/providers/storage_repository_provider.dart';
-import 'package:pipheaksa/core/type_defs.dart';
 import 'package:pipheaksa/core/utils.dart';
 import 'package:pipheaksa/features/auth/controller/auth_controller.dart';
 import 'package:pipheaksa/features/community/repository/community_repository.dart';
 import 'package:pipheaksa/models/community_model.dart';
-import 'package:routemaster/routemaster.dart';
 
 final userCommunitiesProvider = StreamProvider((ref) {
   final communityController = ref.watch(communityControllerProvider.notifier);
@@ -126,7 +126,7 @@ class CommunityController extends StateNotifier<bool> {
       );
       res.fold(
         (l) => showSnackBar(l.message),
-        (r) => community.copyWith(avatar: r),
+        (r) => community = community.copyWith(avatar: r),
       );
     }
 
@@ -138,7 +138,7 @@ class CommunityController extends StateNotifier<bool> {
       );
       res.fold(
         (l) => showSnackBar(l.message),
-        (r) => community.copyWith(banner: r),
+        (r) => community = community.copyWith(banner: r),
       );
     }
 
@@ -152,5 +152,13 @@ class CommunityController extends StateNotifier<bool> {
 
   Stream<List<Community>> searchCommunity(String query) {
     return _communityRepository.searchCommunity(query);
+  }
+
+  void addMods(String communityName, List<String> uids, BuildContext context) async {
+    final res = await _communityRepository.addMods(communityName, uids);
+    res.fold(
+      (l) => showSnackBar(l.message),
+      (r) => Routemaster.of(context).pop(),
+    );
   }
 }
