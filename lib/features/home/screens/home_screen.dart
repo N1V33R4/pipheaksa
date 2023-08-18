@@ -37,12 +37,14 @@ class HomeScreen extends ConsumerWidget {
             },
             icon: const Icon(Icons.search),
           ),
-          IconButton(
-            icon: CircleAvatar(
-              backgroundImage: NetworkImage(user.profilePic),
-            ),
-            onPressed: () => displayEndDrawer(context),
-          )
+          Builder(builder: (context) {
+            return IconButton(
+              icon: CircleAvatar(
+                backgroundImage: NetworkImage(user.profilePic),
+              ),
+              onPressed: () => displayEndDrawer(context),
+            );
+          })
         ],
       ),
       drawer: const CommunityListDrawer(),

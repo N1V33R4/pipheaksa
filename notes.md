@@ -253,5 +253,7 @@ Copy paste repository from community repo
 
 It's a pain in the ass 'cuz of all the boilerplate code. Reminds me of Java. 
 
+When I use the gmail profile pic, it just don't load for me. Using a default avatar would be better. It doesn't crash. So far, it all works after a few tweaks here and there. 
+
 
 # Toggle theme 
