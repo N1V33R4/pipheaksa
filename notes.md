@@ -263,3 +263,14 @@ Use StateNotifierProvider with the state of ThemeData (instead of the usual bool
 
 
 # Bottom nav
+it's literally indexing a list
+
+
+# Add post text, image, link
+text and link is simple
+image needs upload to firebase storage before setting link to post 
+
+Needs the whole shebang: repository, controller, ui
+
+
+# Fetch feed
