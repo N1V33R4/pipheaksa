@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fpdart/fpdart.dart';
 import 'package:routemaster/routemaster.dart';
 import 'package:uuid/uuid.dart';
 
@@ -25,6 +24,11 @@ final postControllerProvider = StateNotifierProvider<PostController, bool>(
     );
   },
 );
+
+final userPostsProvider = StreamProviderFamily((ref, List<Community> communities) {
+  final postController = ref.watch(postControllerProvider.notifier);
+  return postController.fetchUserPosts(communities);
+});
 
 class PostController extends StateNotifier<bool> {
   final PostRepository _postRepository;
@@ -142,7 +146,7 @@ class PostController extends StateNotifier<bool> {
           commentCount: 0,
           username: user.name,
           uid: user.uid,
-          type: 'link',
+          type: 'image',
           createdAt: DateTime.now(),
           awards: [],
           link: r,
@@ -159,5 +163,12 @@ class PostController extends StateNotifier<bool> {
         );
       },
     );
+  }
+
+  Stream<List<Post>> fetchUserPosts(List<Community> communities) {
+    if (communities.isNotEmpty) {
+      return _postRepository.fetchUserPosts(communities);
+    }
+    return Stream.value([]);
   }
 }

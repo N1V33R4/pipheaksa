@@ -274,3 +274,13 @@ Needs the whole shebang: repository, controller, ui
 
 
 # Fetch feed
+Create a function that returns `Stream<List<Post>>`. I don't know how to add an algo to keep them hooked. 
+
+? YOU need to index when you use a where with an order by?? 
+
+**Preview links**: any_link_preview
+
+The row and column alignment is insane. It's even worse than Bootstrap. Holy shit. No wonder people use react native or some other frontend framework to build the UIs of mobile and even desktop apps. The tools there are just terrible. 
+
+
+# Delete post
