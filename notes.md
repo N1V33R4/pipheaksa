@@ -257,3 +257,9 @@ When I use the gmail profile pic, it just don't load for me. Using a default ava
 
 
 # Toggle theme 
+Use shared_preferences to store local settings (theme)
+
+Use StateNotifierProvider with the state of ThemeData (instead of the usual bool)
+
+
+# Bottom nav

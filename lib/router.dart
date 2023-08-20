@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:pipheaksa/features/community/screens/add_mods_screen.dart';
+import 'package:pipheaksa/features/post/screens/add_post_type_screen.dart';
 import 'package:pipheaksa/features/user_profile/screens/edit_profile_screen.dart';
 import 'package:pipheaksa/features/user_profile/screens/user_profile_screen.dart';
 import 'package:routemaster/routemaster.dart';
@@ -50,6 +51,11 @@ final loggedInRoute = RouteMap(routes: {
   '/edit-profile/:uid': (route) => MaterialPage(
         child: EditProfileScreen(
           uid: route.pathParameters['uid']!,
+        ),
+      ),
+  '/add-post/:type': (route) => MaterialPage(
+        child: AddPostTypeScreen(
+          type: route.pathParameters['type']!,
         ),
       ),
 });
