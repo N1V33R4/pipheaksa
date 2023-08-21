@@ -290,3 +290,6 @@ return right(_posts.doc(post.id).delete());
 
 
 # Upvote/downvote
+# Mod options on posts
+read from a stream inside the damn build function
+
