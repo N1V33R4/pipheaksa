@@ -120,9 +120,9 @@ class PostRepository {
         .orderBy('createdAt', descending: true)
         .snapshots()
         .map(
-          (event) => event.docs
-              .map((e) => Comment.fromMap(e.data() as Map<String, dynamic>))
-              .toList(),
+          (event) => event.docs.map((e) {
+            return Comment.fromMap(e.data() as Map<String, dynamic>);
+          }).toList(),
         );
   }
 }

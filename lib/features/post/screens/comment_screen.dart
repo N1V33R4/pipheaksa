@@ -51,21 +51,21 @@ class _CommentScreenState extends ConsumerState<CommentScreen> {
                       border: InputBorder.none,
                     ),
                   ),
-                  ref.watch(getPostCommentsProvider(post.id)).when(
-                        data: (comments) {
-                          return Expanded(
-                            child: ListView.builder(
-                              itemCount: comments.length,
-                              itemBuilder: (context, index) {
-                                final comment = comments[index];
-                                return CommentCard(comment: comment);
-                              },
-                            ),
-                          );
-                        },
-                        error: (error, stackTrace) => ErrorText(error: error.toString()),
-                        loading: () => const Loader(),
-                      )
+                  // ref.watch(getPostCommentsProvider(post.id)).when(
+                  //       data: (comments) {
+                  //         return Expanded(
+                  //           child: ListView.builder(
+                  //             itemCount: comments.length,
+                  //             itemBuilder: (context, index) {
+                  //               final comment = comments[index];
+                  //               return CommentCard(comment: comment);
+                  //             },
+                  //           ),
+                  //         );
+                  //       },
+                  //       error: (error, stackTrace) => ErrorText(error: error.toString()),
+                  //       loading: () => const Loader(),
+                  //     )
                 ],
               );
             },

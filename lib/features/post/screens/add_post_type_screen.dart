@@ -92,7 +92,7 @@ class _AddPostTypeScreenState extends ConsumerState<AddPostTypeScreen> {
             appBar: AppBar(
               title: Text('Post ${widget.type}'),
               actions: [
-                TextButton(onPressed: () {}, child: const Text('Share')),
+                TextButton(onPressed: sharePost, child: const Text('Share')),
               ],
             ),
             body: Padding(
