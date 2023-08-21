@@ -6,6 +6,7 @@ import 'package:pipheaksa/core/failure.dart';
 import 'package:pipheaksa/core/providers/firebase_providers.dart';
 import 'package:pipheaksa/core/type_defs.dart';
 import 'package:pipheaksa/models/community_model.dart';
+import 'package:pipheaksa/models/post_model.dart';
 
 final communityRepositoryProvider = Provider((ref) {
   return CommunityRepository(firestore: ref.watch(firestoreProvider));
@@ -118,6 +119,22 @@ class CommunityRepository {
     }
   }
 
+  Stream<List<Post>> getCommunityPosts(String name) {
+    return _posts
+        .where('communityName', isEqualTo: name)
+        .orderBy('createdAt', descending: true)
+        .snapshots()
+        .map(
+          (event) => event.docs
+              .map(
+                (e) => Post.fromMap(e.data as Map<String, dynamic>),
+              )
+              .toList(),
+        );
+  }
+
   CollectionReference get _communities =>
       _firestore.collection(FirebaseConstants.communitiesCollection);
+  CollectionReference get _posts =>
+      _firestore.collection(FirebaseConstants.postsCollection);
 }

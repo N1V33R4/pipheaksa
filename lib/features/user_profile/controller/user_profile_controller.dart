@@ -6,6 +6,7 @@ import 'package:pipheaksa/core/providers/storage_repository_provider.dart';
 import 'package:pipheaksa/core/utils.dart';
 import 'package:pipheaksa/features/auth/controller/auth_controller.dart';
 import 'package:pipheaksa/features/user_profile/repository/user_profile_repository.dart';
+import 'package:pipheaksa/models/post_model.dart';
 import 'package:pipheaksa/models/user_model.dart';
 import 'package:routemaster/routemaster.dart';
 
@@ -22,6 +23,10 @@ final userProfileControllerProvider = StateNotifierProvider<UserProfileControlle
   },
 );
 
+final getUserPostsProvider = StreamProviderFamily((ref, String uid) {
+  return ref.watch(userProfileControllerProvider.notifier).getUserPosts(uid);
+});
+
 class UserProfileController extends StateNotifier<bool> {
   final UserProfileRepository _userProfileRepository;
   final Ref _ref;
@@ -36,7 +41,7 @@ class UserProfileController extends StateNotifier<bool> {
         _storageRepository = storageRepository,
         super(false);
 
-  void editCommunity({
+  void editUserProfile({
     required File? profileFile,
     required File? bannerFile,
     required BuildContext context,
@@ -70,7 +75,7 @@ class UserProfileController extends StateNotifier<bool> {
     }
 
     user = user.copyWith(name: name);
-    final res = await _userProfileRepository.editCommunity(user);
+    final res = await _userProfileRepository.editUserProfile(user);
     state = false;
     res.fold(
       (l) => showSnackBar(l.message),
@@ -79,5 +84,9 @@ class UserProfileController extends StateNotifier<bool> {
         Routemaster.of(context).pop();
       },
     );
+  }
+
+  Stream<List<Post>> getUserPosts(String uid) {
+    return _userProfileRepository.getUserPosts(uid);
   }
 }

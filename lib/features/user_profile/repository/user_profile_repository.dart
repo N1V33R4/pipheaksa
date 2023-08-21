@@ -5,6 +5,7 @@ import 'package:pipheaksa/core/constants/firebase_constants.dart';
 import 'package:pipheaksa/core/failure.dart';
 import 'package:pipheaksa/core/providers/firebase_providers.dart';
 import 'package:pipheaksa/core/type_defs.dart';
+import 'package:pipheaksa/models/post_model.dart';
 import 'package:pipheaksa/models/user_model.dart';
 
 final userProfileRepositoryProvider = Provider((ref) {
@@ -18,7 +19,7 @@ class UserProfileRepository {
     required FirebaseFirestore firestore,
   }) : _firestore = firestore;
 
-  FutureVoid editCommunity(UserModel user) async {
+  FutureVoid editUserProfile(UserModel user) async {
     try {
       return right(_users.doc(user.uid).update(user.toMap()));
     } on FirebaseException catch (e) {
@@ -28,6 +29,22 @@ class UserProfileRepository {
     }
   }
 
+  Stream<List<Post>> getUserPosts(String uid) {
+    return _posts
+        .where('uid', isEqualTo: uid)
+        .orderBy('createdAt', descending: true)
+        .snapshots()
+        .map(
+          (event) => event.docs
+              .map(
+                (e) => Post.fromMap(e.data as Map<String, dynamic>),
+              )
+              .toList(),
+        );
+  }
+
   CollectionReference get _users =>
       _firestore.collection(FirebaseConstants.usersCollection);
+  CollectionReference get _posts =>
+      _firestore.collection(FirebaseConstants.postsCollection);
 }

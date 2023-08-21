@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pipheaksa/core/common/error_text.dart';
 import 'package:pipheaksa/core/common/loader.dart';
+import 'package:pipheaksa/core/common/post_card.dart';
 import 'package:pipheaksa/features/auth/controller/auth_controller.dart';
 import 'package:pipheaksa/features/community/controller/community_controller.dart';
 import 'package:pipheaksa/models/community_model.dart';
@@ -109,7 +110,21 @@ class CommunityScreen extends ConsumerWidget {
                   )
                 ];
               },
-              body: const Text('Displaying posts'),
+              body: ref.watch(getCommunityPostsProvider(name)).when(
+                    data: (posts) {
+                      return ListView.builder(
+                        itemCount: posts.length,
+                        itemBuilder: (context, index) {
+                          final post = posts[index];
+                          return PostCard(post: post);
+                        },
+                      );
+                    },
+                    error: (error, stackTrace) {
+                      return ErrorText(error: error.toString());
+                    },
+                    loading: () => const Loader(),
+                  ),
             ),
             error: (error, stackTrace) => ErrorText(error: error.toString()),
             loading: () => const Loader(),
