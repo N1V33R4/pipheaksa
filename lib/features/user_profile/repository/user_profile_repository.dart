@@ -37,7 +37,7 @@ class UserProfileRepository {
         .map(
           (event) => event.docs
               .map(
-                (e) => Post.fromMap(e.data as Map<String, dynamic>),
+                (e) => Post.fromMap(e.data() as Map<String, dynamic>),
               )
               .toList(),
         );

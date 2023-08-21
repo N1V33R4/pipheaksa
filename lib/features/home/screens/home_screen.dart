@@ -68,16 +68,23 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       endDrawer: const ProfileDrawer(),
       body: Constants.tabWidgets[_page],
       bottomNavigationBar: CupertinoTabBar(
+        height: 60,
         activeColor: currentTheme.iconTheme.color,
         backgroundColor: currentTheme.backgroundColor,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: '',
+            icon: Padding(
+              padding: EdgeInsets.only(top: 8.0),
+              child: Icon(Icons.home),
+            ),
+            label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: '',
+            icon: Padding(
+              padding: EdgeInsets.only(top: 8.0),
+              child: Icon(Icons.add),
+            ),
+            label: 'Create',
           ),
         ],
         onTap: onPageChanged,

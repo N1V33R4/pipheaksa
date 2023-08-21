@@ -14,7 +14,9 @@ import 'loader.dart';
 
 class PostCard extends ConsumerWidget {
   final Post post;
-  const PostCard({super.key, required this.post});
+  final bool isFull;
+
+  const PostCard({super.key, required this.post, this.isFull = false});
 
   void deletePost(WidgetRef ref) {
     ref.read(postControllerProvider.notifier).deletePost(post);
@@ -29,15 +31,15 @@ class PostCard extends ConsumerWidget {
   }
 
   void navgiateToUserProfile(BuildContext context) {
-    Routemaster.of(context).push('/u/:${post.uid}');
+    Routemaster.of(context).push('/u/${post.uid}');
   }
 
   void navgiateToCommunity(BuildContext context) {
-    Routemaster.of(context).push('/p/:${post.communityName}');
+    Routemaster.of(context).push('/p/${post.communityName}');
   }
 
   void navgiateToComments(BuildContext context) {
-    Routemaster.of(context).push('/post/:${post.id}/comments');
+    Routemaster.of(context).push('/post/${post.id}/comments');
   }
 
   @override
@@ -142,14 +144,22 @@ class PostCard extends ConsumerWidget {
                               ),
                             ),
                           if (isTypeText)
-                            Container(
-                              alignment: Alignment.bottomLeft,
-                              padding: const EdgeInsets.symmetric(horizontal: 15),
-                              child: Text(
-                                post.description!,
-                                style: const TextStyle(color: Colors.grey),
+                            if (isFull)
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 15),
+                                child: Text(
+                                  post.description!,
+                                ),
+                              )
+                            else
+                              Container(
+                                alignment: Alignment.bottomLeft,
+                                padding: const EdgeInsets.symmetric(horizontal: 15),
+                                child: Text(
+                                  post.description!,
+                                  style: const TextStyle(color: Colors.grey),
+                                ),
                               ),
-                            ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -158,8 +168,7 @@ class PostCard extends ConsumerWidget {
                                   IconButton(
                                     onPressed: () => upvotePost(ref),
                                     icon: Icon(
-                                      // Constants.up,
-                                      Icons.arrow_upward,
+                                      Constants.up,
                                       size: 30,
                                       color: post.upvotes.contains(user.uid)
                                           ? Pallete.redColor

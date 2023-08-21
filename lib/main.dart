@@ -32,39 +32,29 @@ class _MyAppState extends ConsumerState<MyApp> {
   UserModel? userModel;
 
   void getData(WidgetRef ref, User data) async {
-    print("getting data=================================");
     userModel =
         await ref.watch(authControllerProvider.notifier).getUserData(data.uid).first;
     ref.read(userProvider.notifier).update((state) => userModel);
     setState(() {});
-    print("finish setting userModel=================================");
   }
 
   @override
   Widget build(BuildContext context) {
-    print("Where tf am I !____________________________________!!!!!!!!!!!!!");
     return ref.watch(authStateChangeProvider).when(
           data: (data) {
-            print('=================================');
-            print(userModel);
-            print(data);
-            print('=================================');
             return MaterialApp.router(
               title: 'Pipheaksa',
               theme: ref.watch(themeNotifierProvider),
               routerDelegate: RoutemasterDelegate(
                 routesBuilder: (context) {
                   if (data != null) {
-                    print("Data is not null=================================");
+                    // This check is necessary to prevent infinite recursion.
                     if (userModel == null) {
                       getData(ref, data);
-                    }
-                    if (userModel != null) {
-                      print("userModel is not null=================================");
+                    } else {
                       return loggedInRoute;
                     }
                   }
-                  print("RETURN LOGOUT=================================");
                   return loggedOutRoute;
                 },
               ),
