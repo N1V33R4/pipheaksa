@@ -131,7 +131,6 @@ class PostCard extends ConsumerWidget {
                               width: double.infinity,
                               child: Image.network(
                                 post.link!,
-                                fit: BoxFit.cover,
                               ),
                             ),
                           if (isTypeLink)

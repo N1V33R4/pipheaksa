@@ -297,4 +297,5 @@ read from a stream inside the damn build function
 # Comments
 no comment reply functionality :(
 
-  
+# Known issues
+Updating community avatar will not update posts'. Need to update individually. 
