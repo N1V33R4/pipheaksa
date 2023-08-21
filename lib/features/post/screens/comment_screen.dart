@@ -53,12 +53,14 @@ class _CommentScreenState extends ConsumerState<CommentScreen> {
                   ),
                   ref.watch(getPostCommentsProvider(post.id)).when(
                         data: (comments) {
-                          return ListView.builder(
-                            itemCount: comments.length,
-                            itemBuilder: (context, index) {
-                              final comment = comments[index];
-                              return CommentCard(comment: comment);
-                            },
+                          return Expanded(
+                            child: ListView.builder(
+                              itemCount: comments.length,
+                              itemBuilder: (context, index) {
+                                final comment = comments[index];
+                                return CommentCard(comment: comment);
+                              },
+                            ),
                           );
                         },
                         error: (error, stackTrace) => ErrorText(error: error.toString()),
