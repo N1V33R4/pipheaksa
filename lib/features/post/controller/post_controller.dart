@@ -171,4 +171,22 @@ class PostController extends StateNotifier<bool> {
     }
     return Stream.value([]);
   }
+
+  void deletePost(Post post) async {
+    final res = await _postRepository.deletePost(post);
+    res.fold(
+      (l) => showSnackBar(l.message),
+      (r) => showSnackBar('Post deleted successfully.'),
+    );
+  }
+
+  void upvote(Post post) {
+    final uid = _ref.read(userProvider)!.uid;
+    _postRepository.upvote(post, uid);
+  }
+
+  void downvote(Post post) {
+    final uid = _ref.read(userProvider)!.uid;
+    _postRepository.downvote(post, uid);
+  }
 }

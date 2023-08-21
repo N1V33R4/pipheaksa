@@ -3,12 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pipheaksa/core/constants/constants.dart';
 import 'package:pipheaksa/features/auth/controller/auth_controller.dart';
+import 'package:pipheaksa/features/post/controller/post_controller.dart';
 import 'package:pipheaksa/models/post_model.dart';
 import 'package:pipheaksa/theme/pallet.dart';
 
 class PostCard extends ConsumerWidget {
   final Post post;
   const PostCard({super.key, required this.post});
+
+  void deletePost(WidgetRef ref) {
+    ref.read(postControllerProvider.notifier).deletePost(post);
+  }
+
+  void upvotePost(WidgetRef ref) {
+    ref.read(postControllerProvider.notifier).upvote(post);
+  }
+
+  void downvotePost(WidgetRef ref) {
+    ref.read(postControllerProvider.notifier).downvote(post);
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -69,7 +82,7 @@ class PostCard extends ConsumerWidget {
                               ),
                               if (post.uid == user.uid)
                                 IconButton(
-                                  onPressed: () {},
+                                  onPressed: () => deletePost(ref),
                                   icon: Icon(
                                     Icons.delete,
                                     color: Pallete.redColor,
@@ -97,9 +110,9 @@ class PostCard extends ConsumerWidget {
                               ),
                             ),
                           if (isTypeLink)
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.35,
-                              width: double.infinity,
+                            Padding(
+                              padding:
+                                  const EdgeInsetsDirectional.symmetric(horizontal: 18),
                               child: AnyLinkPreview(
                                 link: post.link!,
                                 displayDirection: UIDirection.uiDirectionHorizontal,
@@ -119,9 +132,10 @@ class PostCard extends ConsumerWidget {
                               Row(
                                 children: [
                                   IconButton(
-                                    onPressed: () {},
+                                    onPressed: () => upvotePost(ref),
                                     icon: Icon(
-                                      Constants.up,
+                                      // Constants.up,
+                                      Icons.arrow_upward,
                                       size: 30,
                                       color: post.upvotes.contains(user.uid)
                                           ? Pallete.redColor
@@ -133,7 +147,7 @@ class PostCard extends ConsumerWidget {
                                     style: const TextStyle(fontSize: 17),
                                   ),
                                   IconButton(
-                                    onPressed: () {},
+                                    onPressed: () => downvotePost(ref),
                                     icon: Icon(
                                       Constants.down,
                                       size: 30,

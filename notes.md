@@ -284,3 +284,9 @@ The row and column alignment is insane. It's even worse than Bootstrap. Holy shi
 
 
 # Delete post
+```dart
+return right(_posts.doc(post.id).delete());
+```
+
+
+# Upvote/downvote
