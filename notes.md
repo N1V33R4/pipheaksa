@@ -293,3 +293,8 @@ return right(_posts.doc(post.id).delete());
 # Mod options on posts
 read from a stream inside the damn build function
 
+
+# Comments
+no comment reply functionality :(
+
+  

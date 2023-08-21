@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pipheaksa/models/comment_model.dart';
 import 'package:routemaster/routemaster.dart';
 import 'package:uuid/uuid.dart';
 
@@ -28,6 +29,14 @@ final postControllerProvider = StateNotifierProvider<PostController, bool>(
 final userPostsProvider = StreamProviderFamily((ref, List<Community> communities) {
   final postController = ref.watch(postControllerProvider.notifier);
   return postController.fetchUserPosts(communities);
+});
+
+final getPostByIdProvider = StreamProvider.family((ref, String postId) {
+  return ref.watch(postControllerProvider.notifier).getPostById(postId);
+});
+
+final getPostCommentsProvider = StreamProviderFamily((ref, String postId) {
+  return ref.watch(postControllerProvider.notifier).getCommentsOfPost(postId);
 });
 
 class PostController extends StateNotifier<bool> {
@@ -188,5 +197,28 @@ class PostController extends StateNotifier<bool> {
   void downvote(Post post) {
     final uid = _ref.read(userProvider)!.uid;
     _postRepository.downvote(post, uid);
+  }
+
+  Stream<Post> getPostById(String postId) {
+    return _postRepository.getPostById(postId);
+  }
+
+  void addComment(BuildContext context, String text, Post post) async {
+    final user = _ref.read(userProvider)!;
+
+    Comment comment = Comment(
+      id: const Uuid().v1(),
+      text: text,
+      createdAt: DateTime.now(),
+      postId: post.id,
+      username: user.name,
+      profilePic: user.profilePic,
+    );
+    final res = await _postRepository.addComment(comment);
+    res.fold((l) => showSnackBar(l.message), (r) => null);
+  }
+
+  Stream<List<Comment>> getCommentsOfPost(String postId) {
+    return _postRepository.getCommentsOfPost(postId);
   }
 }
